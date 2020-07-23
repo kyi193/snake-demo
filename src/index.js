@@ -3,16 +3,12 @@ import './style.css';
 
 import SnakeGame from './snake/SnakeGame'
 const game = new SnakeGame
-game.snake.moveSnake()
-game.updateGameBoard()
-console.log(game.gameBoard.getBoard())
 
 var table = document.createElement('table');
 var tableBody = document.createElement('tbody');
 
 game.gameBoard.getBoard().forEach(function (rowData) {
   var row = document.createElement('tr');
-
   rowData.forEach(function (cellData) {
     if (cellData === 'O') {
       var cell = document.createElement('td');
@@ -24,7 +20,6 @@ game.gameBoard.getBoard().forEach(function (rowData) {
       row.appendChild(cell);
     }
   });
-
   tableBody.appendChild(row);
 });
 

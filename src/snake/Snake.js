@@ -21,6 +21,5 @@ export default class Snake {
     this.body[0][1] + directionalHeading[1]]
     this.body.pop()
     this.body.unshift(newHead)
-    console.log("NEW BODY", this.body)
   }
 }

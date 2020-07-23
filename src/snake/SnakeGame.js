@@ -42,8 +42,6 @@ export default class SnakeGame {
     for (let i = 0; i < bodyCoords.length; i++) {
       let row = bodyCoords[i][0]
       let column = bodyCoords[i][1]
-      console.log("COORDS", row, column)
-      console.log("BOARD", this.gameBoard)
       this.gameBoard.board[row][column] = 'X'
     }
   }

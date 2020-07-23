@@ -5,4 +5,9 @@ export default class SnakeGame {
     this.gameBoard = new GameBoard
     this.snake = new Snake
   }
+
+  getBoard() {
+    return this.gameBoard.getBoard()
+  }
+
 }

@@ -36,4 +36,15 @@ export default class SnakeGame {
     return false
   }
 
+  updateGameBoard() {
+    let bodyCoords = this.snake.getBody()
+    this.gameBoard.resetBoard()
+    for (let i = 0; i < bodyCoords.length; i++) {
+      let row = bodyCoords[i][0]
+      let column = bodyCoords[i][1]
+      console.log("COORDS", row, column)
+      console.log("BOARD", this.gameBoard)
+      this.gameBoard.board[row][column] = 'X'
+    }
+  }
 }

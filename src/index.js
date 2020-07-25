@@ -53,11 +53,14 @@ function displayBoard() {
 }
 
 const updateBoard = (oldSnakeTail, newSnakeHead) => {
-  let oldSnakeTailTD = document.querySelector(`tr:nth-of-type(${oldSnakeTail[0] + 1}) td:nth-of-type(${oldSnakeTail[1] + 1})`)
-  oldSnakeTailTD.classList.replace("dot", "empty")
-  let newSnakeHeadTD = document.querySelector(`tr:nth-of-type(${newSnakeHead[0] + 1}) td:nth-of-type(${newSnakeHead[1] + 1})`)
-  newSnakeHeadTD.classList.replace("empty", "dot")
+  try {
+    let newSnakeHeadTD = document.querySelector(`tr:nth-of-type(${newSnakeHead[0] + 1}) td:nth-of-type(${newSnakeHead[1] + 1})`)
+    newSnakeHeadTD.classList.replace("empty", "dot")
+    let oldSnakeTailTD = document.querySelector(`tr:nth-of-type(${oldSnakeTail[0] + 1}) td:nth-of-type(${oldSnakeTail[1] + 1})`)
+    oldSnakeTailTD.classList.replace("dot", "empty")
+  } catch (error) {
 
+  }
 }
 const destroyBoard = () => {
   document.querySelector('body').innerHTML = '';
@@ -78,11 +81,8 @@ function render(now) {
       location.reload()
     }
     last = now;
-    console.log(lastHeading)
     gameOver = game.tick(lastHeading)
     const [newSnakeHead, oldSnakeTail] = game.getSnakeDisplayUpdatePositions()
-    console.log("Old Snake TaiL", oldSnakeTail)
-    console.log("New Snake Head", newSnakeHead)
     updateBoard(oldSnakeTail, newSnakeHead)
     // destroyBoard()
     // displayBoard()

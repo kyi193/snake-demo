@@ -101,6 +101,10 @@ td.empty {
   background: white;
 }
 
+td.pellet {
+  background-color: orange
+}
+
 .scoreboard {
   position: fixed;
   bottom: 0;

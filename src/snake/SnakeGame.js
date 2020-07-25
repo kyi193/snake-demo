@@ -8,6 +8,7 @@ export default class SnakeGame {
     this.turn = 1
     this.gameBoard = new GameBoard(rows, columns)
     this.snake = new Snake(this.gameBoard.getOrigin())
+    this.pellets = new Set()
   }
 
   getSnakeDisplayUpdatePositions() {
@@ -62,7 +63,31 @@ export default class SnakeGame {
     this.gameBoard.board[tailCoords[0]][tailCoords[1]] = 'T'
   }
 
+  generatePellet() {
+    while (true) {
+      const randomRow = Math.floor(Math.random() * this.rows)
+      const randomColumn = Math.floor(Math.random() * this.columns)
+      const isValidPelletCoord = true
+      const body = this.snake.getBody()
+      for (let i = 0; i < body.length; i++) {
+        let coord = body[i]
+        if (coord[0] === randomRow && coord[1] === randomColumn) {
+          isValidPelletCoord = false
+          break
+        }
+      }
+      if (isValidPelletCoord) {
+        this.pellets.add(`${randomRow},${randomColumn}`)
+        break
+      }
+    }
+  }
   tick(heading) {
+    if (Math.random() <= .1) {
+      this.generatePellet()
+      console.log(this.pellets)
+    }
+
     this.turn += 1
     this.updateGameBoard()
     this.snake.moveSnake(heading)

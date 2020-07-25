@@ -6,7 +6,7 @@ const game = new SnakeGame(50, 50)
 game.updateGameBoard()
 
 const TIME_INTERVAL = 50
-const DEBUG_MODE = true
+const DEBUG_MODE = false
 
 document.onkeydown = checkKey;
 
@@ -50,7 +50,8 @@ function displayBoard() {
     'O': 'empty',
     'X': 'body',
     'H': 'head',
-    'T': 'tail'
+    'T': 'tail',
+    'P': 'pellet'
   }
   game.gameBoard.getBoard().forEach(function (rowData) {
     var row = document.createElement('tr');
@@ -71,6 +72,14 @@ const updateScoreboard = (newScore) => {
 
 const updateBoard = (oldSnakeTail, newSnakeHead, oldSnakeHead, newSnakeTail, heading) => {
   try {
+    game.pellets.forEach(pellet => {
+      let coord = pellet.split(',')
+      let row = parseInt(coord[0])
+      let column = parseInt(coord[1])
+      let pelletTD = document.querySelector(`tr:nth-of-type(${row + 1}) td:nth-of-type(${column + 1})`)
+      pelletTD.classList.add("pellet")
+    })
+
     let newSnakeHeadTD = document.querySelector(`tr:nth-of-type(${newSnakeHead[0] + 1}) td:nth-of-type(${newSnakeHead[1] + 1})`)
     newSnakeHeadTD.classList.replace("empty", "head")
     newSnakeHeadTD.classList.remove(["up", "down", "left", "right"])

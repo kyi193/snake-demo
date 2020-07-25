@@ -1,7 +1,7 @@
 import GameBoard from './GameBoard'
 import Snake from './Snake'
 
-const PELLET_SCORE = 33
+const PELLET_SCORE = 100
 
 export default class SnakeGame {
   constructor(rows, columns, growSnakeEveryNTurns = 10, randomGrow = false) {

@@ -53,15 +53,20 @@ function displayBoard() {
   document.body.appendChild(table);
 }
 
-const updateBoard = (oldSnakeTail, newSnakeHead, oldSnakeHead, newSnakeTail) => {
+const updateBoard = (oldSnakeTail, newSnakeHead, oldSnakeHead, newSnakeTail, heading) => {
   try {
     let newSnakeHeadTD = document.querySelector(`tr:nth-of-type(${newSnakeHead[0] + 1}) td:nth-of-type(${newSnakeHead[1] + 1})`)
     newSnakeHeadTD.classList.replace("empty", "head")
+    newSnakeHeadTD.classList.remove(["up", "down", "left", "right"])
+    newSnakeHeadTD.classList.add(heading)
     let oldSnakeHeadTD = document.querySelector(`tr:nth-of-type(${oldSnakeHead[0] + 1}) td:nth-of-type(${oldSnakeHead[1] + 1})`)
+    oldSnakeHeadTD.classList.remove(["up", "down", "left", "right"])
     oldSnakeHeadTD.classList.replace("head", "body")
     let newSnakeTailTD = document.querySelector(`tr:nth-of-type(${newSnakeTail[0] + 1}) td:nth-of-type(${newSnakeTail[1] + 1})`)
+    newSnakeTailTD.classList.remove(["up", "down", "left", "right"])
     newSnakeTailTD.classList.replace("body", "tail")
     let oldSnakeTailTD = document.querySelector(`tr:nth-of-type(${oldSnakeTail[0] + 1}) td:nth-of-type(${oldSnakeTail[1] + 1})`)
+    oldSnakeTailTD.classList.remove(["up", "down", "left", "right"])
     oldSnakeTailTD.classList.replace("tail", "empty")
   } catch (error) {
 
@@ -86,7 +91,7 @@ if (!DEBUG_MODE) {
       last = now;
       gameOver = game.tick(lastHeading)
       const [newSnakeHead, oldSnakeTail, oldSnakeHead, newSnakeTail] = game.getSnakeDisplayUpdatePositions()
-      updateBoard(oldSnakeTail, newSnakeHead, oldSnakeHead, newSnakeTail)
+      updateBoard(oldSnakeTail, newSnakeHead, oldSnakeHead, newSnakeTail, game.snake.getHeading())
 
 
     }

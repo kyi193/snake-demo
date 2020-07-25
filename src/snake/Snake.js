@@ -32,6 +32,9 @@ export default class Snake {
   getPreviousHead() {
     return this.body[1]
   }
+  getHeading() {
+    return this.heading
+  }
   updateHeading(heading) {
     if (heading) {
       if (this.heading === 'right' && heading === 'left') { return }

@@ -71,4 +71,8 @@ export default class SnakeGame {
     }
     return this.gameOver()
   }
+
+  getScore() {
+    return 10 * this.turn
+  }
 }

@@ -6,7 +6,7 @@ const game = new SnakeGame(50, 50)
 game.updateGameBoard()
 
 const TIME_INTERVAL = 50
-const DEBUG_MODE = false
+const DEBUG_MODE = true
 
 document.onkeydown = checkKey;
 
@@ -30,10 +30,22 @@ function checkKey(e) {
 
 }
 
+const displayScoreBoard = () => {
+  var scoreBoard = document.createElement('div')
+  scoreBoard.classList.add("scoreboard")
+  var scoreH1 = document.createElement('h1')
+  scoreH1.innerHTML = 'Score: '
+  scoreBoard.appendChild(scoreH1)
+  var scoreP = document.createElement('p')
+  scoreP.innerText = "0"
+  scoreBoard.appendChild(scoreP)
+  document.body.appendChild(scoreBoard);
+}
+
 function displayBoard() {
   var table = document.createElement('table');
   var tableBody = document.createElement('tbody');
-
+  displayScoreBoard()
   const boardClassNameMap = {
     'O': 'empty',
     'X': 'body',
@@ -51,6 +63,10 @@ function displayBoard() {
   });
   table.appendChild(tableBody);
   document.body.appendChild(table);
+}
+
+const updateScoreboard = (newScore) => {
+  document.querySelector(".scoreboard p").innerText = `${newScore}`
 }
 
 const updateBoard = (oldSnakeTail, newSnakeHead, oldSnakeHead, newSnakeTail, heading) => {
@@ -85,15 +101,14 @@ if (!DEBUG_MODE) {
   function render(now) {
     if (!last || now - last >= TIME_INTERVAL) {
       if (gameOver) {
-        alert("GAME OVER!")
+        alert(`GAME OVER! Your score is: ${game.getScore()}`)
         location.reload()
       }
       last = now;
       gameOver = game.tick(lastHeading)
       const [newSnakeHead, oldSnakeTail, oldSnakeHead, newSnakeTail] = game.getSnakeDisplayUpdatePositions()
       updateBoard(oldSnakeTail, newSnakeHead, oldSnakeHead, newSnakeTail, game.snake.getHeading())
-
-
+      updateScoreboard(game.getScore())
     }
     requestAnimationFrame(render);
   }

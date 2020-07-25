@@ -1,3 +1,17 @@
+body {
+  margin: 0;
+  background: black;
+  padding-top: 40px;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 td {
   border: 1px solid black;
   padding: 2px;
@@ -8,12 +22,8 @@ td {
   border-radius: 50%;
 }
 
-table {
-  border-collapse: collapse;
-  border-spacing: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+tbody {
+  background: white
 }
 
 td.head {
@@ -89,4 +99,27 @@ td.tail {
 
 td.empty {
   background: white;
+}
+
+.scoreboard {
+  position: fixed;
+  bottom: 0;
+  background: #5d7cb5;
+  width: 100%;
+  text-align: center;
+  color: #c9daba;
+  font-family: helvetica;
+}
+
+.scoreboard h1 {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.scoreboard p {
+  display: inline-block;
+  vertical-align: middle;
+  padding-left: 0.5em;
+  padding-top: 0em;
+  font-size: 2em;
 }

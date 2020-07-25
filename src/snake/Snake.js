@@ -22,7 +22,10 @@ export default class Snake {
   getBody() {
     return this.body
   }
-
+  grow() {
+    this.body.push(this.lastTail)
+    this.lastTail = null
+  }
 
   updateHeading(heading) {
     if (heading) {

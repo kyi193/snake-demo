@@ -1,9 +1,11 @@
 import GameBoard from './GameBoard'
 import Snake from './Snake'
 export default class SnakeGame {
-  constructor(rows, columns) {
+  constructor(rows, columns, growSnakeEveryNTurns = 10) {
     this.rows = rows
     this.columns = columns
+    this.growSnakeEveryNTurns = growSnakeEveryNTurns
+    this.turn = 1
     this.gameBoard = new GameBoard(rows, columns)
     this.snake = new Snake(this.gameBoard.getOrigin())
   }
@@ -55,8 +57,12 @@ export default class SnakeGame {
   }
 
   tick(heading) {
+    this.turn += 1
     this.updateGameBoard()
     this.snake.moveSnake(heading)
+    if (this.turn % this.growSnakeEveryNTurns === 0) {
+      this.snake.grow()
+    }
     return this.gameOver()
   }
 }

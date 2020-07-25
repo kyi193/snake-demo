@@ -17,16 +17,22 @@ function checkKey(e) {
 
   if (e.keyCode == '38') {
     lastHeading = 'up'
-  }
-  else if (e.keyCode == '40') {
+  } else if (e.keyCode == '40') {
     lastHeading = 'down'
-  }
-  else if (e.keyCode == '37') {
+  } else if (e.keyCode == '37') {
+    lastHeading = 'left'
+  } else if (e.keyCode == '39') {
+    lastHeading = 'right'
+  } else if (e.keyCode == '87') {
+    lastHeading = 'up'
+  } else if (e.keyCode == '68') {
+    lastHeading = 'right'
+  } else if (e.keyCode == '83') {
+    lastHeading = 'down'
+  } else if (e.keyCode == '65') {
     lastHeading = 'left'
   }
-  else if (e.keyCode == '39') {
-    lastHeading = 'right'
-  }
+
 
 }
 

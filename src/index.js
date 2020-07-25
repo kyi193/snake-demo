@@ -5,7 +5,8 @@ import SnakeGame from './snake/SnakeGame'
 const game = new SnakeGame(20, 20)
 game.updateGameBoard()
 
-window.confirm("Start Game?")
+const TIME_INTERVAL = 200
+const DEBUG_MODE = false
 
 document.onkeydown = checkKey;
 
@@ -68,30 +69,25 @@ const destroyBoard = () => {
 
 displayBoard()
 
+if (!DEBUG_MODE) {
+  window.confirm("Start Game?")
+  var last = 0;
+  let gameOver = false
+  function render(now) {
+    if (!last || now - last >= TIME_INTERVAL) {
+      if (gameOver) {
+        alert("GAME OVER!")
+        location.reload()
+      }
+      last = now;
+      gameOver = game.tick(lastHeading)
+      const [newSnakeHead, oldSnakeTail] = game.getSnakeDisplayUpdatePositions()
+      updateBoard(oldSnakeTail, newSnakeHead)
 
-//////////////////////////////////////////////
 
-var last = 0; // timestamp of the last render() call
-let gameOver = false
-function render(now) {
-  // each 1 second call render
-  if (!last || now - last >= 200) {
-    if (gameOver) {
-      alert("GAME OVER!")
-      location.reload()
     }
-    last = now;
-    gameOver = game.tick(lastHeading)
-    const [newSnakeHead, oldSnakeTail] = game.getSnakeDisplayUpdatePositions()
-    updateBoard(oldSnakeTail, newSnakeHead)
-    // destroyBoard()
-    // displayBoard()
-
-
-    // createNewObject();
+    requestAnimationFrame(render);
   }
-  requestAnimationFrame(render);
-  // renderer.render(scene, camera);
-}
 
-render()
+  render()
+}

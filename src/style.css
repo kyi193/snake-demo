@@ -50,43 +50,43 @@ td.head::after{
 }
 
 td.head.up::before {
-  top: 25%;
-  left: 25%
+  top: 12%;
+  left: 12%
 }
 
 td.head.up::after {
-  top: 25%;
-  right: 25%
+  top: 12%;
+  right: 12%
 }
 
 td.head.right::before {
-  top: 25%;
-  right: 25%
+  top: 12%;
+  right: 12%
 }
 
 td.head.right::after {
-  bottom: 25%;
-  right: 25%
+  bottom: 12%;
+  right: 12%
 }
 
 td.head.left::before {
-  top: 25%;
-  left: 25%
+  top: 12%;
+  left: 12%
 }
 
 td.head.left::after {
-  bottom: 25%;
-  left: 25%
+  bottom: 12%;
+  left: 12%
 }
 
 td.head.down::before {
-  bottom: 25%;
-  left: 25%
+  bottom: 12%;
+  left: 12%
 }
 
 td.head.down::after {
-  bottom: 25%;
-  right: 25%
+  bottom: 12%;
+  right: 12%
 }
 
 td.body {

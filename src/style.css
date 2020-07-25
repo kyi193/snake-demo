@@ -1,16 +1,19 @@
 td {
   border: 1px solid black;
-  padding: 4px;
+  padding: 2px;
   text-align: center;
   vertical-align: middle;
-  width: 20px;
-  height: 20px;
-  border-radius: 80%;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
 }
 
 table {
   border-collapse: collapse;
   border-spacing: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 td.head {

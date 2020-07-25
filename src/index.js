@@ -6,7 +6,7 @@ const game = new SnakeGame(20, 20)
 game.updateGameBoard()
 
 const TIME_INTERVAL = 200
-const DEBUG_MODE = false
+const DEBUG_MODE = true
 
 document.onkeydown = checkKey;
 

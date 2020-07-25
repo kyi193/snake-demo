@@ -2,6 +2,7 @@ import GameBoard from './GameBoard'
 import Snake from './Snake'
 
 const PELLET_SCORE = 100
+const MAX_PELLETS = 10
 
 export default class SnakeGame {
   constructor(rows, columns, growSnakeEveryNTurns = 10, randomGrow = false) {
@@ -83,6 +84,9 @@ export default class SnakeGame {
   }
 
   generatePellet() {
+    if (this.pellets.size === MAX_PELLETS) {
+      return
+    }
     while (true) {
       const randomRow = Math.floor(Math.random() * this.rows)
       const randomColumn = Math.floor(Math.random() * this.columns)

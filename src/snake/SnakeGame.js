@@ -8,6 +8,12 @@ export default class SnakeGame {
     this.snake = new Snake(this.gameBoard.getOrigin())
   }
 
+  getSnakeDisplayUpdatePositions() {
+    return [
+      this.snake.getHead(),
+      this.snake.getLastTail()
+    ]
+  }
   getBoard() {
     return this.gameBoard.getBoard()
   }

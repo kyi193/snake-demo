@@ -52,6 +52,13 @@ function displayBoard() {
   document.body.appendChild(table);
 }
 
+const updateBoard = (oldSnakeTail, newSnakeHead) => {
+  let oldSnakeTailTD = document.querySelector(`tr:nth-of-type(${oldSnakeTail[0] + 1}) td:nth-of-type(${oldSnakeTail[1] + 1})`)
+  oldSnakeTailTD.classList.replace("dot", "empty")
+  let newSnakeHeadTD = document.querySelector(`tr:nth-of-type(${newSnakeHead[0] + 1}) td:nth-of-type(${newSnakeHead[1] + 1})`)
+  newSnakeHeadTD.classList.replace("empty", "dot")
+
+}
 const destroyBoard = () => {
   document.querySelector('body').innerHTML = '';
 }
@@ -65,7 +72,7 @@ var last = 0; // timestamp of the last render() call
 let gameOver = false
 function render(now) {
   // each 1 second call render
-  if (!last || now - last >= 500) {
+  if (!last || now - last >= 200) {
     if (gameOver) {
       alert("GAME OVER!")
       location.reload()
@@ -73,8 +80,12 @@ function render(now) {
     last = now;
     console.log(lastHeading)
     gameOver = game.tick(lastHeading)
-    destroyBoard()
-    displayBoard()
+    const [newSnakeHead, oldSnakeTail] = game.getSnakeDisplayUpdatePositions()
+    console.log("Old Snake TaiL", oldSnakeTail)
+    console.log("New Snake Head", newSnakeHead)
+    updateBoard(oldSnakeTail, newSnakeHead)
+    // destroyBoard()
+    // displayBoard()
 
 
     // createNewObject();

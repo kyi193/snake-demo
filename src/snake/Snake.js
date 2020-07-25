@@ -26,8 +26,8 @@ export default class Snake {
     return this.body
   }
   grow() {
-    // this.body.push(this.lastTail)
-    // this.lastTail = null
+    this.body.push(this.lastTail)
+    this.lastTail = null
   }
   getPreviousHead() {
     return this.body[1]

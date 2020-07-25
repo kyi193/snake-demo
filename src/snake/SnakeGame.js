@@ -1,9 +1,11 @@
 import GameBoard from './GameBoard'
 import Snake from './Snake'
 export default class SnakeGame {
-  constructor() {
-    this.gameBoard = new GameBoard
-    this.snake = new Snake
+  constructor(rows, columns) {
+    this.rows = rows
+    this.columns = columns
+    this.gameBoard = new GameBoard(rows, columns)
+    this.snake = new Snake(this.gameBoard.getOrigin())
   }
 
   getBoard() {
@@ -20,9 +22,9 @@ export default class SnakeGame {
 
   detectedWallCollision() {
     const headCoords = this.snake.getHead()
-    console.log(headCoords)
-    return headCoords[0] === 0 || headCoords[0] === 9
-      || headCoords[1] === 0 || headCoords[1] === 9
+    // console.log(headCoords)
+    return headCoords[0] < 0 || headCoords[0] === this.rows
+      || headCoords[1] < 0 || headCoords[1] === this.columns
   }
 
   detectedBodyCollision() {
@@ -44,5 +46,11 @@ export default class SnakeGame {
       let column = bodyCoords[i][1]
       this.gameBoard.board[row][column] = 'X'
     }
+  }
+
+  tick(heading) {
+    this.updateGameBoard()
+    this.snake.moveSnake(heading)
+    return this.gameOver()
   }
 }

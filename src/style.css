@@ -5,13 +5,26 @@ td {
   vertical-align: middle;
   width: 20px;
   height: 20px;
-}
-table {
-    border-collapse: collapse;
-    border-spacing: 0;
+  border-radius: 80%;
 }
 
-.dot {
-  background-color: black;
-  border-radius: 80%;
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+td.head {
+  background-color: red;
+}
+
+td.body {
+  background-color: green;
+}
+
+td.tail {
+  background-color: blue;
+}
+
+td.empty {
+  background: white;
 }

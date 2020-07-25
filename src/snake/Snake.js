@@ -16,6 +16,9 @@ export default class Snake {
   getHead() {
     return this.body[0]
   }
+  getTail() {
+    return this.body[this.body.length - 1]
+  }
   getLastTail() {
     return this.lastTail
   }
@@ -23,10 +26,12 @@ export default class Snake {
     return this.body
   }
   grow() {
-    this.body.push(this.lastTail)
-    this.lastTail = null
+    // this.body.push(this.lastTail)
+    // this.lastTail = null
   }
-
+  getPreviousHead() {
+    return this.body[1]
+  }
   updateHeading(heading) {
     if (heading) {
       if (this.heading === 'right' && heading === 'left') { return }

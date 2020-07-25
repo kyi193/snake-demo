@@ -34,18 +34,18 @@ function displayBoard() {
   var table = document.createElement('table');
   var tableBody = document.createElement('tbody');
 
+  const boardClassNameMap = {
+    'O': 'empty',
+    'X': 'body',
+    'H': 'head',
+    'T': 'tail'
+  }
   game.gameBoard.getBoard().forEach(function (rowData) {
     var row = document.createElement('tr');
     rowData.forEach(function (cellData) {
-      if (cellData === 'O') {
-        var cell = document.createElement('td');
-        cell.className = "empty"
-        row.appendChild(cell);
-      } else {
-        var cell = document.createElement('td');
-        cell.className = "dot"
-        row.appendChild(cell);
-      }
+      var cell = document.createElement('td');
+      cell.className = boardClassNameMap[cellData]
+      row.appendChild(cell);
     });
     tableBody.appendChild(row);
   });
@@ -53,12 +53,16 @@ function displayBoard() {
   document.body.appendChild(table);
 }
 
-const updateBoard = (oldSnakeTail, newSnakeHead) => {
+const updateBoard = (oldSnakeTail, newSnakeHead, oldSnakeHead, newSnakeTail) => {
   try {
     let newSnakeHeadTD = document.querySelector(`tr:nth-of-type(${newSnakeHead[0] + 1}) td:nth-of-type(${newSnakeHead[1] + 1})`)
-    newSnakeHeadTD.classList.replace("empty", "dot")
+    newSnakeHeadTD.classList.replace("empty", "head")
+    let oldSnakeHeadTD = document.querySelector(`tr:nth-of-type(${oldSnakeHead[0] + 1}) td:nth-of-type(${oldSnakeHead[1] + 1})`)
+    oldSnakeHeadTD.classList.replace("head", "body")
+    let newSnakeTailTD = document.querySelector(`tr:nth-of-type(${newSnakeTail[0] + 1}) td:nth-of-type(${newSnakeTail[1] + 1})`)
+    newSnakeTailTD.classList.replace("body", "tail")
     let oldSnakeTailTD = document.querySelector(`tr:nth-of-type(${oldSnakeTail[0] + 1}) td:nth-of-type(${oldSnakeTail[1] + 1})`)
-    oldSnakeTailTD.classList.replace("dot", "empty")
+    oldSnakeTailTD.classList.replace("tail", "empty")
   } catch (error) {
 
   }
@@ -81,8 +85,8 @@ if (!DEBUG_MODE) {
       }
       last = now;
       gameOver = game.tick(lastHeading)
-      const [newSnakeHead, oldSnakeTail] = game.getSnakeDisplayUpdatePositions()
-      updateBoard(oldSnakeTail, newSnakeHead)
+      const [newSnakeHead, oldSnakeTail, oldSnakeHead, newSnakeTail] = game.getSnakeDisplayUpdatePositions()
+      updateBoard(oldSnakeTail, newSnakeHead, oldSnakeHead, newSnakeTail)
 
 
     }

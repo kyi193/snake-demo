@@ -13,7 +13,9 @@ export default class SnakeGame {
   getSnakeDisplayUpdatePositions() {
     return [
       this.snake.getHead(),
-      this.snake.getLastTail()
+      this.snake.getLastTail(),
+      this.snake.getPreviousHead(),
+      this.snake.getTail()
     ]
   }
   getBoard() {
@@ -54,6 +56,10 @@ export default class SnakeGame {
       let column = bodyCoords[i][1]
       this.gameBoard.board[row][column] = 'X'
     }
+    const headCoords = this.snake.getHead()
+    const tailCoords = this.snake.getTail()
+    this.gameBoard.board[headCoords[0]][headCoords[1]] = 'H'
+    this.gameBoard.board[tailCoords[0]][tailCoords[1]] = 'T'
   }
 
   tick(heading) {

@@ -127,3 +127,14 @@ td.pellet {
   padding-top: 0em;
   font-size: 2em;
 }
+
+span.version {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+  color: white;
+  background: #1a986f;
+  padding: 5px 10px;
+  border-top-left-radius: 15%;
+}

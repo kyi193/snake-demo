@@ -82,7 +82,7 @@ export default class SnakeGame {
     while (true) {
       const randomRow = Math.floor(Math.random() * this.rows)
       const randomColumn = Math.floor(Math.random() * this.columns)
-      const isValidPelletCoord = true
+      let isValidPelletCoord = true
       const body = this.snake.getBody()
       for (let i = 0; i < body.length; i++) {
         let coord = body[i]

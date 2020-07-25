@@ -18,6 +18,10 @@ export default class SnakeGame {
     this.randomGrow = randomGrow
   }
 
+  gameInterval() {
+    return ((0.85 ** (this.turn * 0.005))) * 300
+  }
+
   getSnakeDisplayUpdatePositions() {
     return [
       this.snake.getHead(),

@@ -13,28 +13,36 @@ export default class Snake {
     this.heading = 'up'
     this.lastTail = null
   }
+
   getHead() {
     return this.body[0]
   }
+
   getTail() {
     return this.body[this.body.length - 1]
   }
+
   getLastTail() {
     return this.lastTail
   }
+
   getBody() {
     return this.body
   }
+
   grow() {
     this.body.push(this.lastTail)
     this.lastTail = null
   }
+
   getPreviousHead() {
     return this.body[1]
   }
+
   getHeading() {
     return this.heading
   }
+
   updateHeading(heading) {
     if (heading) {
       if (this.heading === 'right' && heading === 'left') { return }
@@ -44,6 +52,7 @@ export default class Snake {
       this.heading = heading
     }
   }
+
   moveSnake(heading) {
     this.updateHeading(heading)
     let directionalHeading = this.directions[this.heading]

@@ -1,5 +1,8 @@
 import GameBoard from './GameBoard'
 import Snake from './Snake'
+
+const PELLET_SCORE = 33
+
 export default class SnakeGame {
   constructor(rows, columns, growSnakeEveryNTurns = 10) {
     this.rows = rows
@@ -9,6 +12,8 @@ export default class SnakeGame {
     this.gameBoard = new GameBoard(rows, columns)
     this.snake = new Snake(this.gameBoard.getOrigin())
     this.pellets = new Set()
+    this.score = 0
+    this.lastPelletEaten = null
   }
 
   getSnakeDisplayUpdatePositions() {
@@ -49,6 +54,16 @@ export default class SnakeGame {
     return false
   }
 
+  detectPelletCollision() {
+    const headCoord = this.snake.getHead()
+    const headCoordStr = `${headCoord[0]},${headCoord[1]}`
+    if (this.pellets.has(headCoordStr)) {
+      // this.lastPelletEaten = headCoord
+      this.score += PELLET_SCORE
+      this.pellets.delete(headCoordStr)
+    }
+  }
+
   updateGameBoard() {
     let bodyCoords = this.snake.getBody()
     this.gameBoard.resetBoard()
@@ -83,6 +98,7 @@ export default class SnakeGame {
     }
   }
   tick(heading) {
+    this.score += 10
     if (Math.random() <= .1) {
       this.generatePellet()
       console.log(this.pellets)
@@ -91,6 +107,7 @@ export default class SnakeGame {
     this.turn += 1
     this.updateGameBoard()
     this.snake.moveSnake(heading)
+    this.detectPelletCollision()
     if (this.turn % this.growSnakeEveryNTurns === 0) {
       this.snake.grow()
     }
@@ -98,6 +115,6 @@ export default class SnakeGame {
   }
 
   getScore() {
-    return 10 * this.turn
+    return this.score
   }
 }

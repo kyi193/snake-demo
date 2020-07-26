@@ -2,7 +2,7 @@ import _ from 'lodash'
 import './style.css';
 
 import SnakeGame from './snake/SnakeGame'
-const game = new SnakeGame(50, 50)
+const game = new SnakeGame(10, 10)
 game.updateGameBoard()
 
 const TIME_INTERVAL = 50
@@ -131,6 +131,7 @@ if (!DEBUG_MODE) {
     if (!last || now - last >= TIME_INTERVAL) {
       if (gameOver) {
         alert(`GAME OVER! Your score is: ${game.getScore()}`)
+        cancelAnimationFrame(render);
         location.reload()
       }
       last = now;

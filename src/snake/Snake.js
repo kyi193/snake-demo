@@ -1,8 +1,10 @@
 export default class Snake {
-  constructor(origin, length = 5) {
+  constructor(origin, length = 5, skipBody = false) {
     this.body = []
-    for (let rowOffSet = 0; rowOffSet < length; rowOffSet++) {
-      this.body.push([origin[0] + rowOffSet, origin[1]])
+    if (!skipBody) {
+      for (let rowOffSet = 0; rowOffSet < length; rowOffSet++) {
+        this.body.push([origin[0] + rowOffSet, origin[1]])
+      }
     }
     this.directions = {
       up: [-1, 0],
@@ -67,5 +69,14 @@ export default class Snake {
     let newHead = this.nextPosition(directionalHeading)
     this.lastTail = this.body.pop()
     this.body.unshift(newHead)
+  }
+
+  createNextSnake(heading) {
+    let newSnake = new Snake(this.origin, this.length, true);
+    newSnake.heading = this.heading
+    newSnake.lastTail = this.lastTail
+    newSnake.body = this.body
+    newSnake.moveSnake(heading)
+    return newSnake
   }
 }

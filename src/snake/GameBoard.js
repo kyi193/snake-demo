@@ -2,20 +2,26 @@ const OPEN = 'O'
 const WALL = 'W'
 
 export default class GameBoard {
-  constructor(rows, columns) {
+  constructor(rows, columns, skipBoardGenerator = false) {
     this.board = []
     this.rows = rows
     this.columns = columns
-    for (let i = 0; i < rows; i++) {
-      let row = []
-      for (let j = 0; j < columns; j++) {
-        row.push(OPEN)
+    if (!skipBoardGenerator) {
+      for (let i = 0; i < rows; i++) {
+        let row = []
+        for (let j = 0; j < columns; j++) {
+          row.push(OPEN)
+        }
+        this.board.push(row)
       }
-      this.board.push(row)
     }
   }
   getBoard() {
     return this.board
+  }
+
+  setBoard(board) {
+    this.board = board;
   }
 
   getCellValueForCoord(coord) {

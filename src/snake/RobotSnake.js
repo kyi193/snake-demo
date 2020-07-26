@@ -1,8 +1,9 @@
 import Snake from './Snake'
 import { inludesCoord, includesCoord } from './utils'
+import GameBoard from './GameBoard'
 
-const BLANK_SPACE = 1
-const PELLET = 100
+const BLANK_SPACE = 107
+const PELLET = 800
 const WALL = -1000
 const BODY = -1000
 
@@ -32,21 +33,32 @@ export default class RobotSnake extends Snake {
     return nextMoves[randomIndex]
   }
 
-  getValueForMove(coord, heading, depth = 1) {
+  getValueForMove(snake, board, depth = 1) {
+    let coord = snake.getHead();
+    let newBoard = new GameBoard(board.rows, board.columns, true);
+
     const cellValue = this.gameBoard.getCellValueForCoord(coord)
     let currentCoordValue = this.cellCoordinateValueMap[cellValue]
 
-    if (depth === 2) {
+    if (depth === 5) {
       return currentCoordValue
     }
+
     let nextMoves = new Set(['up', 'down', 'left', 'right'])
+    nextMoves.delete(this.oppositeDirectionsMap[snake.getHeading()])
     let nextMovesArr = Array.from(nextMoves)
-    nextMoves.delete(this.oppositeDirectionsMap[heading])
     for (let i = 0; i < nextMovesArr.length; i++) {
       let nextHeading = nextMovesArr[i]
-      let nextDirectionalHeading = this.directions[nextHeading]
-      let nextCoordinate = this.nextPosition(nextDirectionalHeading)
-      currentCoordValue += this.getValueForMove(nextCoordinate, nextHeading, depth + 1)
+      let nextSnake = this.createNextSnake(nextHeading)
+      let newBoard = new GameBoard(board.rows, board.columns, true);
+      newBoard.setBoard(board.getBoard())
+      if (board.checkOutOfBounds(nextSnake.getHead())) {
+        currentCoordValue = WALL
+        continue
+      }
+      newBoard.board[nextSnake.getHead()[0]][nextSnake.getHead()[1]] = 'H';
+      newBoard.board[nextSnake.getLastTail()[0]][nextSnake.getLastTail()[1]] = 'O';
+      currentCoordValue += this.getValueForMove(nextSnake, newBoard, 1)
     }
     return currentCoordValue
   }
@@ -58,22 +70,36 @@ export default class RobotSnake extends Snake {
     this.bestHeading = this.heading;
     this.bestHeadingValue = -9999;
     let nextMovesArr = Array.from(nextMoves)
-    // let values = []
+    let values = []
 
     for (let i = 0; i < nextMovesArr.length; i++) {
       let nextHeading = nextMovesArr[i]
-      let nextDirectionalHeading = this.directions[nextHeading]
-      let nextCoordinate = this.nextPosition(nextDirectionalHeading)
-      let checkHeadingValue = this.getValueForMove(nextCoordinate, nextHeading, 1)
-      // values.push([nextHeading, checkHeadingValue])
-      if (checkHeadingValue > this.bestHeadingValue) {
-        this.bestHeadingValue = checkHeadingValue
-        this.bestHeading = nextHeading
-        // console.log(bestHeadingValue, checkHeadingValue)
+      let nextSnake = this.createNextSnake(nextHeading)
+      debugger
+      // let nextDirectionalHeading = this.directions[nextHeading]
+      // let nextCoordinate = this.nextPosition(nextDirectionalHeading)
+      let newBoard = new GameBoard(this.gameBoard.rows, this.gameBoard.columns, true);
+      newBoard.setBoard(this.gameBoard.getBoard())
+      let checkHeadingValue;
+      if (newBoard.checkOutOfBounds(nextSnake.getHead())) {
+        checkHeadingValue = WALL
+      } else {
+        newBoard.board[nextSnake.getHead()[0]][nextSnake.getHead()[1]] = 'H';
+        newBoard.board[nextSnake.getLastTail()[0]][nextSnake.getLastTail()[1]] = 'O';
+        checkHeadingValue = this.getValueForMove(nextSnake, newBoard, 1)
       }
+      values.push([checkHeadingValue, nextHeading])
+
+      // if (checkHeadingValue > this.bestHeadingValue) {
+      //   this.bestHeadingValue = checkHeadingValue
+      //   this.bestHeading = nextHeading
+      //   // console.log(bestHeadingValue, checkHeadingValue)
+      // }
     }
-    // debugger
-    super.moveSnake(this.bestHeading)
+    values.sort();
+    let bestHeading = values[0][1];
+    console.table(values);
+    super.moveSnake(bestHeading)
   }
 
   moveSnake2() {

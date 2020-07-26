@@ -81,9 +81,12 @@ export default class SnakeGame {
       let column = bodyCoords[i][1]
       this.gameBoard.board[row][column] = 'X'
     }
+    const oldSnakeTail = this.snake.getLastTail();
     const headCoords = this.snake.getHead()
     const tailCoords = this.snake.getTail()
+
     this.gameBoard.board[headCoords[0]][headCoords[1]] = 'H'
+    if (oldSnakeTail) this.gameBoard.board[oldSnakeTail[0]][oldSnakeTail[1]] = 'O'
     this.gameBoard.board[tailCoords[0]][tailCoords[1]] = 'T'
   }
 

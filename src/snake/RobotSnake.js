@@ -1,7 +1,7 @@
 import Snake from './Snake'
 import { inludesCoord, includesCoord } from './utils'
 export default class RobotSnake extends Snake {
-  constructor(origin, length = 5) {
+  constructor(origin, length = 5, gameBoard) {
     super(origin, length)
     this.oppositeDirectionsMap = {
       up: 'down',
@@ -9,6 +9,7 @@ export default class RobotSnake extends Snake {
       left: 'right',
       right: 'left'
     }
+    this.gameBoard = gameBoard
   }
 
   pickHeadingFromChoices(nextMoves) {
@@ -26,7 +27,8 @@ export default class RobotSnake extends Snake {
       let newDirectionalHeading = this.directions[newHeading]
       const nextCoordinate = this.nextPosition(newDirectionalHeading)
       const didHitBody = includesCoord(this.body, nextCoordinate)
-      if (!didHitBody) {
+      const didHitWall = this.gameBoard.checkOutOfBounds(nextCoordinate)
+      if (!didHitBody && !didHitWall) {
         super.moveSnake(newHeading)
         break
       } else {

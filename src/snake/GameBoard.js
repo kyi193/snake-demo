@@ -28,4 +28,9 @@ export default class GameBoard {
   getOrigin() {
     return [Math.floor(this.rows / 2), Math.floor(this.columns / 2)]
   }
+
+  checkOutOfBounds(coord) {
+    return coord[0] < 0 || coord[0] === this.rows
+      || coord[1] < 0 || coord[1] === this.columns
+  }
 }

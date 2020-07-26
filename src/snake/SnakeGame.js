@@ -13,7 +13,7 @@ export default class SnakeGame {
     this.turn = 1
     this.gameBoard = new GameBoard(rows, columns)
     // this.snake = new Snake(this.gameBoard.getOrigin())
-    this.snake = new RobotSnake(this.gameBoard.getOrigin())
+    this.snake = new RobotSnake(this.gameBoard.getOrigin(), 5, this.gameBoard)
     this.pellets = new Set()
     this.score = 0
     this.lastPelletEaten = null
@@ -46,9 +46,7 @@ export default class SnakeGame {
 
   detectedWallCollision() {
     const headCoords = this.snake.getHead()
-    // console.log(headCoords)
-    return headCoords[0] < 0 || headCoords[0] === this.rows
-      || headCoords[1] < 0 || headCoords[1] === this.columns
+    return this.gameBoard.checkOutOfBounds(headCoords)
   }
 
   detectedBodyCollision() {

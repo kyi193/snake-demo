@@ -138,3 +138,43 @@ span.version {
   padding: 5px 10px;
   border-top-left-radius: 15%;
 }
+
+.controller {
+  margin-top: 15px;
+  width: 100%;
+  text-align: center;
+  font-family: helvetica;
+}
+
+
+#up {
+  width: 3em;  height: 2.5em;
+  border-top-left-radius: 50%;
+  border-top-right-radius: 50%;
+}
+
+#down {
+  width: 3em;  height: 2.5em;
+  border-bottom-left-radius: 50%;
+  border-bottom-right-radius: 50%;
+}
+
+#left {
+  width: 3em;  height: 2.5em;
+  border-top-left-radius: 50%;
+  border-bottom-left-radius: 50%;
+}
+
+#right {
+  width: 3em;  height: 2.5em;
+  border-top-right-radius: 50%;
+  border-bottom-right-radius: 50%;
+}
+
+#center {
+  background: transparent;
+  border: none !important;
+  border-color: white;
+  background: white;
+  width: 3em;
+}

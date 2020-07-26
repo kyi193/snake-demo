@@ -12,7 +12,6 @@ document.onkeydown = checkKey;
 
 let lastHeading = 'up'
 function checkKey(e) {
-
   e = e || window.event;
 
   if (e.keyCode == '38') {
@@ -48,10 +47,28 @@ const displayScoreBoard = () => {
   document.body.appendChild(scoreBoard);
 }
 
+const displayController = () => {
+  window.onload = () => {
+    document.getElementById("up").addEventListener('click', () => {
+      lastHeading = 'up'
+    })
+    document.getElementById("down").addEventListener('click', () => {
+      lastHeading = 'down'
+    })
+    document.getElementById("left").addEventListener('click', () => {
+      lastHeading = 'left'
+    })
+    document.getElementById("right").addEventListener('click', () => {
+      lastHeading = 'right'
+    })
+  }
+}
+
 function displayBoard() {
   var table = document.createElement('table');
   var tableBody = document.createElement('tbody');
   displayScoreBoard()
+
   const boardClassNameMap = {
     'O': 'empty',
     'X': 'body',
@@ -69,7 +86,8 @@ function displayBoard() {
     tableBody.appendChild(row);
   });
   table.appendChild(tableBody);
-  document.body.appendChild(table);
+  document.querySelector('.game').appendChild(table)
+  displayController();
 }
 
 const updateScoreboard = (newScore) => {

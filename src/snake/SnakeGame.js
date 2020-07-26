@@ -1,5 +1,6 @@
 import GameBoard from './GameBoard'
 import Snake from './Snake'
+import RobotSnake from './RobotSnake'
 
 const PELLET_SCORE = 100
 const MAX_PELLETS = 10
@@ -11,7 +12,8 @@ export default class SnakeGame {
     this.growSnakeEveryNTurns = growSnakeEveryNTurns
     this.turn = 1
     this.gameBoard = new GameBoard(rows, columns)
-    this.snake = new Snake(this.gameBoard.getOrigin())
+    // this.snake = new Snake(this.gameBoard.getOrigin())
+    this.snake = new RobotSnake(this.gameBoard.getOrigin())
     this.pellets = new Set()
     this.score = 0
     this.lastPelletEaten = null

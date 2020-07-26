@@ -56,8 +56,10 @@ export default class Snake {
   moveSnake(heading) {
     this.updateHeading(heading)
     let directionalHeading = this.directions[this.heading]
-    let newHead = [this.body[0][0] + directionalHeading[0],
-    this.body[0][1] + directionalHeading[1]]
+    let newHead = [
+      this.body[0][0] + directionalHeading[0],
+      this.body[0][1] + directionalHeading[1]
+    ]
     this.lastTail = this.body.pop()
     this.body.unshift(newHead)
   }

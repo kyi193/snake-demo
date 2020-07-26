@@ -1,4 +1,5 @@
 const OPEN = 'O'
+const WALL = 'W'
 
 export default class GameBoard {
   constructor(rows, columns) {
@@ -15,6 +16,17 @@ export default class GameBoard {
   }
   getBoard() {
     return this.board
+  }
+
+  getCellValueForCoord(coord) {
+    if (this.checkOutOfBounds(coord)) {
+      return WALL
+    }
+    return this.board[coord[0]][coord[1]]
+  }
+
+  setCellValueForCoord(coord, cellValue) {
+    this.board[coord[0]][coord[1]] = cellValue
   }
 
   resetBoard() {

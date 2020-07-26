@@ -75,7 +75,7 @@ export default class SnakeGame {
 
   updateGameBoard() {
     let bodyCoords = this.snake.getBody()
-    this.gameBoard.resetBoard()
+    // this.gameBoard.resetBoard()
     for (let i = 0; i < bodyCoords.length; i++) {
       let row = bodyCoords[i][0]
       let column = bodyCoords[i][1]
@@ -105,6 +105,7 @@ export default class SnakeGame {
       }
       if (isValidPelletCoord) {
         this.pellets.add(`${randomRow},${randomColumn}`)
+        this.gameBoard.setCellValueForCoord([randomRow, randomColumn], 'P')
         break
       }
     }

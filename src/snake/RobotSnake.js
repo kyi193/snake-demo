@@ -57,7 +57,9 @@ export default class RobotSnake extends Snake {
         continue
       }
       newBoard.board[nextSnake.getHead()[0]][nextSnake.getHead()[1]] = 'H';
+      newBoard.board[nextSnake.getPreviousHead()[0]][nextSnake.getPreviousHead()[1]] = 'X';
       newBoard.board[nextSnake.getLastTail()[0]][nextSnake.getLastTail()[1]] = 'O';
+      newBoard.board[nextSnake.getTail()[0]][nextSnake.getTail()[1]] = 'T';
       currentCoordValue += this.getValueForMove(nextSnake, newBoard, 1)
     }
     return currentCoordValue
@@ -75,7 +77,6 @@ export default class RobotSnake extends Snake {
     for (let i = 0; i < nextMovesArr.length; i++) {
       let nextHeading = nextMovesArr[i]
       let nextSnake = this.createNextSnake(nextHeading)
-      debugger
       // let nextDirectionalHeading = this.directions[nextHeading]
       // let nextCoordinate = this.nextPosition(nextDirectionalHeading)
       let newBoard = new GameBoard(this.gameBoard.rows, this.gameBoard.columns, true);
@@ -85,7 +86,9 @@ export default class RobotSnake extends Snake {
         checkHeadingValue = WALL
       } else {
         newBoard.board[nextSnake.getHead()[0]][nextSnake.getHead()[1]] = 'H';
+        newBoard.board[nextSnake.getPreviousHead()[0]][nextSnake.getPreviousHead()[1]] = 'X';
         newBoard.board[nextSnake.getLastTail()[0]][nextSnake.getLastTail()[1]] = 'O';
+        newBoard.board[nextSnake.getTail()[0]][nextSnake.getTail()[1]] = 'T';
         checkHeadingValue = this.getValueForMove(nextSnake, newBoard, 1)
       }
       values.push([checkHeadingValue, nextHeading])

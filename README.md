@@ -11,6 +11,8 @@ Head on over to https://kyi193.github.io/snake-demo/ and give it a shot!
 
 -Avoid crashing into the wall or your body! 
 
+![](https://i.imgur.com/wQA8blk.png)
+
 ## Controls:
 Up: ↑ or W
 

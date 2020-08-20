@@ -13,13 +13,44 @@ table {
 }
 
 td {
-  border: 1px solid black;
   padding: 2px;
   text-align: center;
   vertical-align: middle;
   width: 10px;
   height: 10px;
   border-radius: 50%;
+}
+
+#topLeftCell {
+  border-left: 1px solid black;
+  border-top: 1px solid black;
+}
+#bottomLeftCell {
+  border-left: 1px solid black;
+  border-bottom: 1px solid black;
+}
+#topRightCell {
+  border-right: 1px solid black;
+  border-top: 1px solid black;
+}
+#bottomRightCell {
+  border-right: 1px solid black;
+  border-bottom: 1px solid black;
+}
+#topCell {
+  border-top: 1px solid black;
+}
+
+#leftCell {
+  border-left: 1px solid black;
+}
+
+#rightCell {
+  border-right: 1px solid black;
+}
+
+#bottomCell {
+  border-bottom: 1px solid black;
 }
 
 tbody {

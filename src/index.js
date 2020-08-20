@@ -67,6 +67,8 @@ const displayController = () => {
 function displayBoard() {
   var table = document.createElement('table');
   var tableBody = document.createElement('tbody');
+  let columnIndex = 0
+
   displayScoreBoard()
 
   const boardClassNameMap = {
@@ -76,18 +78,52 @@ function displayBoard() {
     'T': 'tail',
     'P': 'pellet'
   }
+
   game.gameBoard.getBoard().forEach(function (rowData) {
     var row = document.createElement('tr');
+    let rowIndex = 0
+    const rows = game.gameBoard.getRows()
+    const columns = game.gameBoard.getColumns()
     rowData.forEach(function (cellData) {
       var cell = document.createElement('td');
       cell.className = boardClassNameMap[cellData]
+      cell.id = determineCellBorder(rowIndex, columnIndex, rows, columns)
       row.appendChild(cell);
+      rowIndex += 1
     });
     tableBody.appendChild(row);
+    columnIndex += 1
   });
   table.appendChild(tableBody);
   document.querySelector('.game').appendChild(table)
   displayController();
+}
+
+const determineCellBorder = (rowIndex, columnIndex, rows, columns) => {
+  if (rowIndex === 0 && columnIndex === 0) {
+    return 'topLeftCell'
+  }
+  if (rowIndex === 0 && columnIndex === columns - 1) {
+    return 'bottomLeftCell'
+  }
+  if (rowIndex === rows - 1 && columnIndex === 0) {
+    return 'topRightCell'
+  }
+  if (rowIndex === rows - 1 && columnIndex === columns - 1) {
+    return 'bottomRightCell'
+  }
+  if (columnIndex === 0) {
+    return 'topCell'
+  }
+  if (rowIndex === 0) {
+    return 'leftCell'
+  }
+  if (rowIndex === rows - 1) {
+    return 'rightCell'
+  }
+  if (columnIndex === columns - 1) {
+    return 'bottomCell'
+  }
 }
 
 const updateScoreboard = (newScore) => {

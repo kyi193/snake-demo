@@ -28,4 +28,12 @@ export default class GameBoard {
   getOrigin() {
     return [Math.floor(this.rows / 2), Math.floor(this.columns / 2)]
   }
+
+  getRows() {
+    return this.rows
+  }
+
+  getColumns() {
+    return this.columns
+  }
 }

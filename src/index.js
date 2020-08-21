@@ -11,6 +11,7 @@ const TOP_WALL = 'top-wall'
 const BOTTOM_WALL = 'bottom-wall'
 const LEFT_WALL = 'left-wall'
 const RIGHT_WALL = 'right-wall'
+const WALLS = [TOP_WALL, BOTTOM_WALL, LEFT_WALL, RIGHT_WALL]
 
 document.onkeydown = checkKey;
 
@@ -102,22 +103,33 @@ function displayBoard() {
 const determineCellBorderClassName = (rowIndex, columnIndex, maxRows, maxColumns) => {
   let className = ''
   if (rowIndex === 0) {
-    className += ' top-wall'
+    className += ` ${TOP_WALL}`
   }
   if (rowIndex === maxRows - 1) {
-    className += ' bottom-wall'
+    className += ` ${BOTTOM_WALL}`
   }
   if (columnIndex === 0) {
-    className += ' left-wall'
+    className += ` ${LEFT_WALL}`
   }
   if (columnIndex === maxColumns - 1) {
-    className += ' right-wall'
+    className += ` ${RIGHT_WALL}`
   }
   return className
 }
 
 const updateScoreboard = (newScore) => {
   document.querySelector(".scoreboard p").innerText = `${newScore}`
+}
+
+const extractWallClassName = (snakeDomClassEl) => {
+  const snakeClassList = [...snakeDomClassEl]
+  let filteredSnakeClassList = snakeClassList.filter((wall) => WALLS.includes(wall))
+  return filteredSnakeClassList.join(' ')
+}
+
+const addSnakeClassNames = (snakeTD, snakeBodyClassName) => {
+  const wallClassName = extractWallClassName(snakeTD.classList)
+  snakeTD.classList = snakeBodyClassName + ' ' + wallClassName
 }
 
 const updateBoard = (oldSnakeTail, newSnakeHead, oldSnakeHead, newSnakeTail, heading) => {
@@ -131,14 +143,14 @@ const updateBoard = (oldSnakeTail, newSnakeHead, oldSnakeHead, newSnakeTail, hea
     })
 
     let newSnakeHeadTD = document.querySelector(`tr:nth-of-type(${newSnakeHead[0] + 1}) td:nth-of-type(${newSnakeHead[1] + 1})`)
-    newSnakeHeadTD.classList = 'head'
+    addSnakeClassNames(newSnakeHeadTD, 'head')
     newSnakeHeadTD.classList.add(heading)
     let oldSnakeHeadTD = document.querySelector(`tr:nth-of-type(${oldSnakeHead[0] + 1}) td:nth-of-type(${oldSnakeHead[1] + 1})`)
-    oldSnakeHeadTD.classList = 'body'
+    addSnakeClassNames(oldSnakeHeadTD, 'body')
     let newSnakeTailTD = document.querySelector(`tr:nth-of-type(${newSnakeTail[0] + 1}) td:nth-of-type(${newSnakeTail[1] + 1})`)
-    newSnakeTailTD.classList = 'tail'
+    addSnakeClassNames(newSnakeTailTD, 'tail')
     let oldSnakeTailTD = document.querySelector(`tr:nth-of-type(${oldSnakeTail[0] + 1}) td:nth-of-type(${oldSnakeTail[1] + 1})`)
-    oldSnakeTailTD.classList = 'empty'
+    addSnakeClassNames(oldSnakeTailTD, 'empty')
   } catch (error) {
 
   }

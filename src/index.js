@@ -7,6 +7,10 @@ game.updateGameBoard()
 
 const TIME_INTERVAL = 50
 const DEBUG_MODE = false
+const TOP_WALL = 'top-wall'
+const BOTTOM_WALL = 'bottom-wall'
+const LEFT_WALL = 'left-wall'
+const RIGHT_WALL = 'right-wall'
 
 document.onkeydown = checkKey;
 
@@ -31,8 +35,6 @@ function checkKey(e) {
   } else if (e.keyCode == '65') {
     lastHeading = 'left'
   }
-
-
 }
 
 const displayScoreBoard = () => {
@@ -68,6 +70,8 @@ function displayBoard() {
   var table = document.createElement('table');
   var tableBody = document.createElement('tbody');
   let columnIndex = 0
+  const maxRows = game.gameBoard.getRows()
+  const maxColumns = game.gameBoard.getColumns()
 
   displayScoreBoard()
 
@@ -79,51 +83,37 @@ function displayBoard() {
     'P': 'pellet'
   }
 
-  game.gameBoard.getBoard().forEach(function (rowData) {
+  game.gameBoard.getBoard().forEach(function (rowData, rowIndex) {
     var row = document.createElement('tr');
-    let rowIndex = 0
-    const rows = game.gameBoard.getRows()
-    const columns = game.gameBoard.getColumns()
-    rowData.forEach(function (cellData) {
+
+    rowData.forEach(function (cellData, columnIndex) {
       var cell = document.createElement('td');
       cell.className = boardClassNameMap[cellData]
-      cell.id = determineCellBorder(rowIndex, columnIndex, rows, columns)
+      cell.className += determineCellBorderClassName(rowIndex, columnIndex, maxRows, maxColumns)
       row.appendChild(cell);
-      rowIndex += 1
     });
     tableBody.appendChild(row);
-    columnIndex += 1
   });
   table.appendChild(tableBody);
   document.querySelector('.game').appendChild(table)
   displayController();
 }
 
-const determineCellBorder = (rowIndex, columnIndex, rows, columns) => {
-  if (rowIndex === 0 && columnIndex === 0) {
-    return 'topLeftCell'
+const determineCellBorderClassName = (rowIndex, columnIndex, maxRows, maxColumns) => {
+  let className = ''
+  if (rowIndex === 0) {
+    className += ' top-wall'
   }
-  if (rowIndex === 0 && columnIndex === columns - 1) {
-    return 'bottomLeftCell'
-  }
-  if (rowIndex === rows - 1 && columnIndex === 0) {
-    return 'topRightCell'
-  }
-  if (rowIndex === rows - 1 && columnIndex === columns - 1) {
-    return 'bottomRightCell'
+  if (rowIndex === maxRows - 1) {
+    className += ' bottom-wall'
   }
   if (columnIndex === 0) {
-    return 'topCell'
+    className += ' left-wall'
   }
-  if (rowIndex === 0) {
-    return 'leftCell'
+  if (columnIndex === maxColumns - 1) {
+    className += ' right-wall'
   }
-  if (rowIndex === rows - 1) {
-    return 'rightCell'
-  }
-  if (columnIndex === columns - 1) {
-    return 'bottomCell'
-  }
+  return className
 }
 
 const updateScoreboard = (newScore) => {
@@ -156,6 +146,7 @@ const updateBoard = (oldSnakeTail, newSnakeHead, oldSnakeHead, newSnakeTail, hea
 const destroyBoard = () => {
   document.querySelector('body').innerHTML = '';
 }
+
 
 displayBoard()
 

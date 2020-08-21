@@ -21,36 +21,20 @@ td {
   border-radius: 50%;
 }
 
-#topLeftCell {
-  border-left: 1px solid black;
-  border-top: 1px solid black;
-}
-#bottomLeftCell {
-  border-left: 1px solid black;
-  border-bottom: 1px solid black;
-}
-#topRightCell {
-  border-right: 1px solid black;
-  border-top: 1px solid black;
-}
-#bottomRightCell {
-  border-right: 1px solid black;
-  border-bottom: 1px solid black;
-}
-#topCell {
+.top-wall {
   border-top: 1px solid black;
 }
 
-#leftCell {
-  border-left: 1px solid black;
+.bottom-wall {
+  border-bottom: 1px solid black;
 }
 
-#rightCell {
+.right-wall {
   border-right: 1px solid black;
 }
 
-#bottomCell {
-  border-bottom: 1px solid black;
+.left-wall {
+  border-left: 1px solid black;
 }
 
 tbody {
